@@ -44,8 +44,13 @@ namespace SLA.Quests
         [SerializeField] private IntEventChannel _onCompleted;
         [SerializeField] private SystemMessageChannel _messages;
         [SerializeField] private TravelRequestChannel _arrived;
+        [SerializeField] private VoidEventChannel _onNewGame;
+        [SerializeField] private SaveDataChannel _onCollectSave;
+        [SerializeField] private SaveDataChannel _onApplySave;
 
         private SquatCounter _squats;
+        private bool _announced;
+        private int _streak;
         private MaterialPropertyBlock _block;
         private float[] _padCooldowns;
         private Vector3 _lastLeft;
@@ -77,6 +82,9 @@ namespace SLA.Quests
             _startRequested.Raised += OnStartRequested;
             _restRequested.Raised += OnRestRequested;
             _arrived.Raised += OnArrived;
+            _onNewGame.Raised += ResetForNewGame;
+            _onCollectSave.Raised += Collect;
+            _onApplySave.Raised += Apply;
         }
 
         private void OnDisable()
@@ -84,13 +92,14 @@ namespace SLA.Quests
             _startRequested.Raised -= OnStartRequested;
             _restRequested.Raised -= OnRestRequested;
             _arrived.Raised -= OnArrived;
+            _onNewGame.Raised -= ResetForNewGame;
+            _onCollectSave.Raised -= Collect;
+            _onApplySave.Raised -= Apply;
         }
 
         private void Start()
         {
             RefreshTargets();
-            _messages.Raise(new SystemMessage(SystemMessageKind.Info,
-                "Daily Quest: Strength Training has arrived. Use the quest window to begin."));
             Publish();
         }
 
@@ -129,6 +138,16 @@ namespace SLA.Quests
             if (request.AreaId != _hubAreaId)
             {
                 OnRestRequested(); // QST-15: leaving is a pause, not abandoning.
+                return;
+            }
+            // QST-1: the daily quest arrives on the first hub visit of the session.
+            if (!_announced && _state == DailyQuestState.Available)
+            {
+                _announced = true;
+                RefreshTargets();
+                Publish();
+                _messages.Raise(new SystemMessage(SystemMessageKind.Info,
+                    "Daily Quest: Strength Training has arrived. Use the quest window to begin."));
             }
         }
 
@@ -266,6 +285,7 @@ namespace SLA.Quests
         private void Complete()
         {
             _state = DailyQuestState.Complete;
+            _streak++;
             ShowPads(false);
             _onCompleted.Raise(_config.statPointReward);
             _messages.Raise(new SystemMessage(SystemMessageKind.Reward,
@@ -302,6 +322,30 @@ namespace SLA.Quests
             _block.Clear();
             _block.SetColor(EmissionColorId, color);
             _padRenderers[index].SetPropertyBlock(_block);
+        }
+
+        private void ResetForNewGame()
+        {
+            _state = DailyQuestState.Available;
+            _squatsDone = 0;
+            _punchesDone = 0;
+            _round = 0;
+            _roundDone = 0;
+            _streak = 0;
+            _announced = false;
+            ShowPads(false);
+            RefreshTargets();
+            Publish();
+        }
+
+        private void Collect(SaveData save)
+        {
+            save.quests.dailyStreak = _streak;
+        }
+
+        private void Apply(SaveData save)
+        {
+            _streak = save.quests.dailyStreak;
         }
 
         private float HeadHeight() => _head.position.y - _floor.position.y;

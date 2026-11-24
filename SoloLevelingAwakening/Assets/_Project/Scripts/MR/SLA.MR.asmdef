@@ -1,6 +1,6 @@
 {
     "name": "SLA.MR",
     "rootNamespace": "SLA",
-    "references": ["SLA.Core", "SLA.Data"],
+    "references": ["SLA.Core", "SLA.Data", "Unity.XR.Interaction.Toolkit", "Unity.XR.Interaction.Toolkit.Samples.StarterAssets"],
     "autoReferenced": true
 }

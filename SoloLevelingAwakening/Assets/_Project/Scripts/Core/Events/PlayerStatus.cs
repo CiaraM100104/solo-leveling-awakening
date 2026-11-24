@@ -19,7 +19,6 @@ namespace SLA.Core
         public readonly int RankIndex;
         /// <summary>Stat points not yet spent (PRG-3, PRG-11).</summary>
         public readonly int UnspentStatPoints;
-        public readonly int Gold;
         public readonly int Strength;
         public readonly int Vitality;
         public readonly int Agility;
@@ -28,7 +27,7 @@ namespace SLA.Core
 
         /// <summary>Creates a snapshot.</summary>
         public PlayerStatus(int level, int xp, int xpToNext, int hp, int maxHp, int mp, int maxMp, int rankIndex,
-            int unspentStatPoints, int gold, int strength, int vitality, int agility, int perception, int intelligence)
+            int unspentStatPoints, int strength, int vitality, int agility, int perception, int intelligence)
         {
             Level = level;
             Xp = xp;
@@ -39,7 +38,6 @@ namespace SLA.Core
             MaxMp = maxMp;
             RankIndex = rankIndex;
             UnspentStatPoints = unspentStatPoints;
-            Gold = gold;
             Strength = strength;
             Vitality = vitality;
             Agility = agility;

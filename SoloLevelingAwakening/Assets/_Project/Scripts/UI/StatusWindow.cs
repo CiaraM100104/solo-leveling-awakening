@@ -15,6 +15,7 @@ namespace SLA.UI
         private static readonly string[] StatNames = { "Strength", "Vitality", "Agility", "Perception", "Intelligence" };
 
         [SerializeField] private PlayerStatusChannel _status;
+        [SerializeField] private InventoryStatusChannel _inventory;
         [Tooltip("Raised with the stat index when a + button is pressed.")]
         [SerializeField] private IntEventChannel _allocateStat;
         [SerializeField] private Image _background;
@@ -22,6 +23,9 @@ namespace SLA.UI
         [SerializeField] private TMP_Text[] _statTexts = new TMP_Text[5];
         [SerializeField] private Button[] _plusButtons = new Button[5];
         [SerializeField] private TMP_Text _points;
+
+        private int _gold;
+        private PlayerStatus _last;
 
         private void Awake()
         {
@@ -31,6 +35,11 @@ namespace SLA.UI
         private void OnEnable()
         {
             _status.Raised += Show;
+            _inventory.Raised += OnInventory;
+            if (_inventory.HasValue)
+            {
+                _gold = _inventory.Last.Gold;
+            }
             if (_status.HasValue)
             {
                 Show(_status.Last);
@@ -40,6 +49,13 @@ namespace SLA.UI
         private void OnDisable()
         {
             _status.Raised -= Show;
+            _inventory.Raised -= OnInventory;
+        }
+
+        private void OnInventory(InventoryStatus inventory)
+        {
+            _gold = inventory.Gold;
+            Show(_last);
         }
 
         /// <summary>Wired to each + button with its stat index.</summary>
@@ -50,11 +66,12 @@ namespace SLA.UI
 
         private void Show(PlayerStatus s)
         {
+            _last = s;
             string rank = RankNames[Mathf.Clamp(s.RankIndex, 0, RankNames.Length - 1)];
             string xp = s.XpToNext > 0 ? string.Format("{0} / {1}", s.Xp, s.XpToNext) : "MAX";
             _summary.text = string.Format(
                 "Level <b>{0}</b>     Rank <b>{1}</b>\nJob: None     Title: None\nHP {2} / {3}     MP {4} / {5}\nXP {6}     Gold {7}",
-                s.Level, rank, s.Hp, s.MaxHp, s.Mp, s.MaxMp, xp, s.Gold);
+                s.Level, rank, s.Hp, s.MaxHp, s.Mp, s.MaxMp, xp, _gold);
 
             for (int i = 0; i < _statTexts.Length; i++)
             {

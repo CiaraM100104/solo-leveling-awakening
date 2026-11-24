@@ -21,5 +21,11 @@ namespace SLA.Progression
             int roll = min + Mathf.FloorToInt(Mathf.Clamp01(random01) * (max - min + 1));
             return Mathf.Min(roll, max);
         }
+
+        /// <summary>Whether a regular kill drops a potion (drops table). Bosses don't roll potions.</summary>
+        public static bool DropsPotion(EnemyData enemy, HunterRank gateRank, EconomyConfig config, float random01)
+        {
+            return !enemy.isBoss && random01 < config.potionDropChance[(int)gateRank];
+        }
     }
 }

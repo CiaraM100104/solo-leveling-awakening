@@ -6,6 +6,8 @@ namespace SLA.Data
     [CreateAssetMenu(menuName = "SLA/Data/Gate")]
     public class GateData : ScriptableObject
     {
+        [Tooltip("Saved in quests.completed and score records; never rename.")]
+        public string id = "goblin_warren";
         public string displayName = "Goblin Warren";
         public HunterRank rank = HunterRank.E;
         public int recommendedMinLevel = 1;

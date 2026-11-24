@@ -93,6 +93,10 @@ namespace SLA.Editor
             Set(director, "_onXpGained", d.OnXpGained);
             Set(director, "_onGoldGained", d.OnGoldGained);
             Set(director, "_hits", d.Hits);
+            Set(director, "_onEnemyKilled", ctx.Sys.OnEnemyKilled);
+            Set(director, "_onItemGranted", ctx.Sys.ItemGranted);
+            Set(director, "_potionDrop", ctx.Sys.HealthPotion);
+            Set(director, "_monsterCore", ctx.Sys.MonsterCore);
             SetPools(director, (ctx.Goblin, 4), (ctx.Kobold, 4), (ctx.Chieftain, 1));
             foreach (var room in new[] { room1, room2, boss })
             {
@@ -121,6 +125,15 @@ namespace SLA.Editor
             Set(run, "_onPlayerDied", d.OnPlayerDied);
             Set(run, "_onGateCleared", d.OnGateCleared);
             Set(run, "_messages", d.Messages);
+            Set(run, "_onEnemyKilled", ctx.Sys.OnEnemyKilled);
+            Set(run, "_onXpGained", d.OnXpGained);
+            Set(run, "_onGoldGained", d.OnGoldGained);
+            Set(run, "_onPlayerDamaged", ctx.Sys.OnPlayerDamaged);
+            Set(run, "_onRunCompleted", ctx.Sys.RunCompleted);
+            Set(run, "_onNewGame", ctx.Sys.NewGameStarted);
+            Set(run, "_onCollectSave", ctx.Sys.CollectSave);
+            Set(run, "_onApplySave", ctx.Sys.ApplySave);
+            BuildResultsWindow(ctx, root, Local(0f, 2.45f, 50.96f));
 
             var checkpoints = new[]
             {
@@ -174,7 +187,7 @@ namespace SLA.Editor
             var mats = ctx.Mats;
             float zMin = centerZ - sizeZ / 2f;
             float zMax = centerZ + sizeZ / 2f;
-            Box(parts.Geometry, name + "_Floor", Local(0f, -0.1f, centerZ), new Vector3(sizeX, 0.2f, sizeZ), mats.CaveFloor);
+            MakeTeleportFloor(Box(parts.Geometry, name + "_Floor", Local(0f, -0.1f, centerZ), new Vector3(sizeX, 0.2f, sizeZ), mats.CaveFloor));
             EndWall(parts, name + "_WallS", zMin - WallThickness / 2f, sizeX, southOpening, mats.CaveWall);
             EndWall(parts, name + "_WallN", zMax + WallThickness / 2f, sizeX, northOpening, mats.CaveWall);
             float sideX = sizeX / 2f + WallThickness / 2f;
@@ -204,7 +217,7 @@ namespace SLA.Editor
             float length = zEnd - zStart;
             float centerZ = (zStart + zEnd) / 2f;
             string name = $"Corridor_{zStart:0}";
-            Box(parts.Geometry, name + "_Floor", Local(0f, -0.1f, centerZ), new Vector3(DoorWidth, 0.2f, length), mats.CaveFloor);
+            MakeTeleportFloor(Box(parts.Geometry, name + "_Floor", Local(0f, -0.1f, centerZ), new Vector3(DoorWidth, 0.2f, length), mats.CaveFloor));
             float sideX = DoorWidth / 2f + WallThickness / 2f;
             Box(parts.Geometry, name + "_WallE", Local(sideX, WallHeight / 2f, centerZ), new Vector3(WallThickness, WallHeight, length), mats.CaveWall);
             Box(parts.Geometry, name + "_WallW", Local(-sideX, WallHeight / 2f, centerZ), new Vector3(WallThickness, WallHeight, length), mats.CaveWall);

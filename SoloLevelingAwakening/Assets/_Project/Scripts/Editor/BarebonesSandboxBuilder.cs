@@ -78,6 +78,7 @@ namespace SLA.Editor
             }
 
             EnsureLayers();
+            QuestProjectSettings.ApplyTeleportInteractionLayer();
             EnsureFolders();
             DeleteObsoleteAssets();
 
@@ -87,8 +88,10 @@ namespace SLA.Editor
                 Mats = CreateMaterials(),
                 Sfx = CreateSounds(),
                 Data = CreateData(),
+                Sys = CreateSystemsData(),
             };
             BuildPrefabs(ctx);
+            BuildSystemsPrefabs(ctx);
             CreateEncounters(ctx);
             BuildScene(scene, ctx, originPrefab, vignettePrefab);
 
@@ -108,7 +111,8 @@ namespace SLA.Editor
             public Materials Mats;
             public Sounds Sfx;
             public DataAssets Data;
-            public GameObject Goblin, Kobold, Chieftain, Dagger;
+            public SystemsData Sys;
+            public GameObject Goblin, Kobold, Chieftain, Dagger, Sparring, Potion;
         }
 
         private sealed class Materials
@@ -184,7 +188,7 @@ namespace SLA.Editor
             foreach (var path in new[]
                      {
                          Root + "/Art/Materials", Root + "/Audio/SFX", Root + "/Data/Weapons", Root + "/Data/Enemies",
-                         Root + "/Data/Gates", Root + "/Data/Events", Root + "/Prefabs/Enemies", Root + "/Prefabs/Weapons",
+                         Root + "/Data/Gates", Root + "/Data/Events", Root + "/Prefabs/Enemies", Root + "/Prefabs/Weapons", Root + "/Prefabs/Items",
                          Root + "/Scenes/Sandbox",
                      })
             {

@@ -17,7 +17,8 @@
         "Unity.XR.CoreUtils",
         "Unity.TextMeshPro",
         "UnityEngine.UI",
-        "Unity.AI.Navigation"
+        "Unity.AI.Navigation",
+        "Unity.XR.Interaction.Toolkit.Samples.StarterAssets"
     ],
     "includePlatforms": [
         "Editor"

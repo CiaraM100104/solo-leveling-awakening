@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f48a8cb157615894695c660cfb3a129a, type: 3}
+  m_Name: ScoreConfig
+  m_EditorClassIdentifier: SLA.Data::SLA.Data.ScoreConfig
+  pointsPerKill: 100
+  pointsPerXp: 1
+  pointsPerGold: 2
+  parSeconds: 600
+  pointsPerSecondUnderPar: 5
+  deathPenalty: 500
+  noDamageBonus: 1000
+  boardSize: 10

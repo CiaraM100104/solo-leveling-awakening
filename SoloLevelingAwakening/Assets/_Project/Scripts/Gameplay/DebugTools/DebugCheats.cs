@@ -11,7 +11,8 @@ namespace SLA.DebugTools
 {
     /// <summary>
     /// Editor-only shortcuts for testing without a headset. Does nothing in builds.
-    /// F1 kill nearest enemy · F2 kill all enemies · F3 finish the daily quest · F4 +100 XP · F5 jump to the next checkpoint.
+    /// F1 kill nearest enemy · F2 kill all enemies · F3 finish the daily quest · F4 +100 XP · F5 jump to the next checkpoint ·
+    /// F6 +100 gold and a health potion · F7 skip a tutorial step · F8 save now.
     /// </summary>
     public class DebugCheats : MonoBehaviour
     {
@@ -23,6 +24,7 @@ namespace SLA.DebugTools
         }
 
         private const int DebugXp = 100;
+        private const int DebugGold = 100;
         private const float KillDamage = 99999f;
 
         [SerializeField] private Transform _head;
@@ -31,6 +33,11 @@ namespace SLA.DebugTools
         [SerializeField] private IntEventChannel _onXpGained;
         [SerializeField] private TravelRequestChannel _requests;
         [SerializeField] private Checkpoint[] _checkpoints = new Checkpoint[0];
+        [SerializeField] private IntEventChannel _onGoldGained;
+        [SerializeField] private ItemGrantChannel _onItemGranted;
+        [SerializeField] private string _potionId = "health_potion";
+        [SerializeField] private TutorialSequence _tutorial;
+        [SerializeField] private VoidEventChannel _saveRequested;
 
         private int _nextCheckpoint = 1;
 
@@ -63,6 +70,19 @@ namespace SLA.DebugTools
                 var checkpoint = _checkpoints[_nextCheckpoint % _checkpoints.Length];
                 _nextCheckpoint++;
                 _requests.Raise(new TravelRequest(checkpoint.point, checkpoint.areaId, false));
+            }
+            if (keyboard.f6Key.wasPressedThisFrame)
+            {
+                _onGoldGained.Raise(DebugGold);
+                _onItemGranted.Raise(new ItemStack(_potionId, 1));
+            }
+            if (keyboard.f7Key.wasPressedThisFrame)
+            {
+                _tutorial.SkipStep();
+            }
+            if (keyboard.f8Key.wasPressedThisFrame)
+            {
+                _saveRequested.Raise();
             }
         }
 #endif

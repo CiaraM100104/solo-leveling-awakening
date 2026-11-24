@@ -55,9 +55,11 @@ namespace SLA.Editor
             var hubRoot = hub.Spawn.parent;
             BuildPortal(ctx, rig, hubRoot, "GatePortal_GoblinWarren", hub.PortalAnchor.position, hub.PortalAnchor.rotation,
                 gate.Spawn, GateAreaId);
+            BuildHubSystemWindows(ctx, rig, hubRoot);
 
-            // The player starts at home.
-            rig.Origin.transform.SetPositionAndRotation(hub.Spawn.position, hub.Spawn.rotation);
+            // The game starts on the title screen (screen flow: Boot → Title).
+            var areas = new AreaRefs { TitleSpawn = BuildTitle(ctx, rig) };
+            rig.Origin.transform.SetPositionAndRotation(areas.TitleSpawn.position, areas.TitleSpawn.rotation);
 
             // Dual Rusty Daggers on the hub table; they follow the player to each area's rack.
             var daggers = new XRGrabInteractable[2];
@@ -73,29 +75,40 @@ namespace SLA.Editor
                 daggers[i] = dagger.GetComponent<XRGrabInteractable>();
             }
 
+            BuildTutorial(ctx, rig, areas, daggers, hub.Spawn);
+
             var systems = new GameObject("Systems").transform;
             var stowing = Child(systems, "WeaponStowing").gameObject.AddComponent<WeaponStowing>();
             SetArray(stowing, "_weapons", daggers);
-            SetRacks(stowing, (HubAreaId, hub.RackSlots), (GateAreaId, gate.RackSlots));
+            SetRacks(stowing, (HubAreaId, hub.RackSlots), (GateAreaId, gate.RackSlots), (TutorialAreaId, areas.TutorialRack));
             Set(stowing, "_travelStarting", d.TravelStarting);
             Set(stowing, "_arrived", d.Arrived);
 
             var ambience = Child(systems, "AreaAmbience").gameObject.AddComponent<AreaAmbience>();
-            SetInt(ambience, "_startAreaId", HubAreaId);
-            SetAreaLooks(ambience, (HubAreaId, HubAmbient), (GateAreaId, GateAmbient));
+            SetInt(ambience, "_startAreaId", TitleAreaId);
+            SetAreaLooks(ambience, (HubAreaId, HubAmbient), (GateAreaId, GateAmbient), (TitleAreaId, TitleAmbient),
+                (TutorialAreaId, TutorialAmbient));
             Set(ambience, "_arrived", d.Arrived);
 
             BuildSystemWindow(ctx, rig);
-            BuildWristPanel(ctx, rig);
+            var wrist = BuildWristPanel(ctx, rig);
+            var hud = BuildHud(ctx, rig);
             BuildDamageNumbers(ctx, rig, systems);
+            BuildPauseMenu(ctx, rig);
+            BuildCoreSystems(ctx, rig, systems, hub.Spawn, areas, wrist, hud);
 
+            var s = ctx.Sys;
             var cheats = Child(systems, "DebugCheats (editor only)").gameObject.AddComponent<DebugCheats>();
             Set(cheats, "_head", rig.Head);
-            SetArray(cheats, "_directors", gate.Director);
+            SetArray(cheats, "_directors", gate.Director, areas.TutorialDirector);
             Set(cheats, "_dailyQuest", hub.DailyQuest);
             Set(cheats, "_onXpGained", d.OnXpGained);
             Set(cheats, "_requests", d.RequestTravel);
             SetCheckpoints(cheats, hub.Spawn, gate.Checkpoints);
+            Set(cheats, "_onGoldGained", d.OnGoldGained);
+            Set(cheats, "_onItemGranted", s.ItemGranted);
+            Set(cheats, "_tutorial", areas.Tutorial);
+            Set(cheats, "_saveRequested", s.SaveRequested);
         }
 
         private static Rig BuildRig(Context ctx, Scene scene, GameObject originPrefab, GameObject vignettePrefab)
@@ -151,11 +164,14 @@ namespace SLA.Editor
             Set(progression, "_audio", audio);
             Set(progression, "_hurtClip", ctx.Sfx.Hurt);
             Set(progression, "_onXpGained", d.OnXpGained);
-            Set(progression, "_onGoldGained", d.OnGoldGained);
             Set(progression, "_onAllocateStat", d.OnAllocateStat);
             Set(progression, "_onDailyQuestCompleted", d.OnDailyQuestCompleted);
+            Set(progression, "_onNewGame", ctx.Sys.NewGameStarted);
+            Set(progression, "_onCollectSave", ctx.Sys.CollectSave);
+            Set(progression, "_onApplySave", ctx.Sys.ApplySave);
             Set(progression, "_onLevelUp", d.OnLevelUp);
             Set(progression, "_onPlayerDied", d.OnPlayerDied);
+            Set(progression, "_onPlayerDamaged", ctx.Sys.OnPlayerDamaged);
             Set(progression, "_status", d.PlayerStatus);
 
             // Fade shell around the head, and travel.
@@ -215,27 +231,47 @@ namespace SLA.Editor
             follow.rotationFollowMode = LazyFollow.RotationFollowMode.LookAtWithWorldUp;
         }
 
-        private static void BuildWristPanel(Context ctx, Rig rig)
+        private static GameObject BuildWristPanel(Context ctx, Rig rig)
         {
             if (rig.LeftHand == null)
             {
-                return;
+                return null;
             }
-            var canvas = NewCanvas("WristPanel", rig.LeftHand, new Vector2(380f, 200f), 0.0004f, null);
+            var canvas = StatusBars(ctx, "WristPanel", rig.LeftHand, 0.0004f);
             canvas.transform.localPosition = new Vector3(0f, 0.05f, -0.05f);
             canvas.transform.localRotation = Quaternion.Euler(45f, 0f, 0f);
+            return canvas.gameObject;
+        }
+
+        /// <summary>UI-15 HUD mode: the same bars fixed at the lower left of the view. Off unless chosen in settings.</summary>
+        private static GameObject BuildHud(Context ctx, Rig rig)
+        {
+            var canvas = StatusBars(ctx, "HudPanel", rig.Head, 0.0006f);
+            canvas.transform.localPosition = new Vector3(-0.28f, -0.22f, 0.9f);
+            canvas.transform.localRotation = Quaternion.Euler(10f, -12f, 0f);
+            canvas.gameObject.SetActive(false);
+            return canvas.gameObject;
+        }
+
+        private static Canvas StatusBars(Context ctx, string name, Transform parent, float metersPerPixel)
+        {
+            var canvas = NewCanvas(name, parent, new Vector2(460f, 230f), metersPerPixel, null);
             var background = NewImage("Background", canvas.transform, 0f);
-            var text = NewText("Text", canvas.transform, 0f, ctx.Font, 26f, TextAlignmentOptions.TopLeft);
-            SetRect((RectTransform)text.transform, new Vector2(0f, 0.34f), Vector2.one, new Vector2(14f, 0f), new Vector2(-14f, -8f));
-            var hpFill = Bar(canvas.transform, "HpBar", new Vector2(0.04f, 0.19f), new Vector2(0.96f, 0.3f), UI.SystemPalette.Warning);
-            var mpFill = Bar(canvas.transform, "MpBar", new Vector2(0.04f, 0.05f), new Vector2(0.96f, 0.16f), UI.SystemPalette.Info);
+            var text = NewText("Text", canvas.transform, 0f, ctx.Font, 24f, TextAlignmentOptions.TopLeft);
+            SetRect((RectTransform)text.transform, new Vector2(0f, 0.46f), Vector2.one, new Vector2(14f, 0f), new Vector2(-14f, -8f));
+            var hpFill = Bar(canvas.transform, "HpBar", new Vector2(0.04f, 0.31f), new Vector2(0.96f, 0.41f), UI.SystemPalette.Warning);
+            var mpFill = Bar(canvas.transform, "MpBar", new Vector2(0.04f, 0.18f), new Vector2(0.96f, 0.27f), UI.SystemPalette.Info);
+            var xpFill = Bar(canvas.transform, "XpBar", new Vector2(0.04f, 0.05f), new Vector2(0.96f, 0.13f), UI.SystemPalette.Reward);
 
             var panel = canvas.gameObject.AddComponent<WristPanel>();
             Set(panel, "_status", ctx.Data.PlayerStatus);
+            Set(panel, "_inventory", ctx.Sys.Inventory);
             Set(panel, "_text", text);
             Set(panel, "_background", background);
             Set(panel, "_hpFill", hpFill);
             Set(panel, "_mpFill", mpFill);
+            Set(panel, "_xpFill", xpFill);
+            return canvas;
         }
 
         private static void BuildDamageNumbers(Context ctx, Rig rig, Transform parent)

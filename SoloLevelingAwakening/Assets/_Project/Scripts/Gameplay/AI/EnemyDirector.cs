@@ -35,6 +35,12 @@ namespace SLA.AI
         [SerializeField] private IntEventChannel _onXpGained;
         [SerializeField] private IntEventChannel _onGoldGained;
         [SerializeField] private HitEventChannel _hits;
+        [SerializeField] private VoidEventChannel _onEnemyKilled;
+        [SerializeField] private ItemGrantChannel _onItemGranted;
+
+        [Header("Loot")]
+        [SerializeField] private ItemData _potionDrop;
+        [SerializeField] private ItemData _monsterCore;
 
         private readonly Dictionary<GameObject, List<EnemyBrain>> _pool = new Dictionary<GameObject, List<EnemyBrain>>();
         private readonly List<EnemyBrain> _active = new List<EnemyBrain>();
@@ -86,6 +92,17 @@ namespace SLA.AI
             int gold = Loot.GoldForKill(enemy.Data, _gate.rank, _economy, Random.value);
             _onGoldGained.Raise(gold);
             _hits.Raise(new HitEvent(enemy.transform.position + Vector3.up * 1.2f, gold, HitKind.Gold));
+            _onEnemyKilled.Raise();
+
+            // Loot goes straight to the System inventory (ITM-9).
+            if (_potionDrop != null && Loot.DropsPotion(enemy.Data, _gate.rank, _economy, Random.value))
+            {
+                _onItemGranted.Raise(new ItemStack(_potionDrop.id, 1));
+            }
+            if (enemy.Data.isBoss && _monsterCore != null && _economy.bossMonsterCores > 0)
+            {
+                _onItemGranted.Raise(new ItemStack(_monsterCore.id, _economy.bossMonsterCores));
+            }
 
             if (enemy.Owner != null)
             {

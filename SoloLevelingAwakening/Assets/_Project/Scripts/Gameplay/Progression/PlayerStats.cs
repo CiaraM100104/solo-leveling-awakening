@@ -1,4 +1,5 @@
 using SLA.Data;
+using UnityEngine;
 
 namespace SLA.Progression
 {
@@ -92,6 +93,20 @@ namespace SLA.Progression
             if (points > 0)
             {
                 UnspentStatPoints += points;
+            }
+        }
+
+        /// <summary>Restores saved progress. Values are clamped to the rules (level cap, stats at least the base).</summary>
+        public void Restore(int level, int xp, int unspentStatPoints, HunterRank rank, int[] stats)
+        {
+            Level = Mathf.Clamp(level, 1, _config.levelCap);
+            Xp = IsAtCap ? 0 : Mathf.Clamp(xp, 0, Mathf.Max(0, XpCurve.XpToNext(Level, _config) - 1));
+            UnspentStatPoints = Mathf.Max(0, unspentStatPoints);
+            SkillPoints = Mathf.Max(0, Level - _config.skillPointsAfterLevel); // PRG-4: one per level above 10.
+            Rank = rank;
+            for (int i = 0; i < _stats.Length; i++)
+            {
+                _stats[i] = Mathf.Max(_config.baseStat, stats != null && i < stats.Length ? stats[i] : _config.baseStat);
             }
         }
 

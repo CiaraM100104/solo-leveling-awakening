@@ -4,6 +4,8 @@ Why the project is the way it is. Newest first. Add a row (or a short section fo
 
 | Date | Decision | Why | Revisit if |
 | --- | --- | --- | --- |
+| Nov 24, 2026 | **Scores** board added (proposed): each gate clear is scored from kills, XP, gold, time, falls and damage taken; the top 10 are saved and shown on the title screen | Requested for the main menu; the GDD has a Results screen but no scores. Weights are PLACEHOLDERS in `ScoreConfig` | The team writes a scoring spec, or drops scores |
+| Nov 24, 2026 | **Training Grounds** tutorial (grab, strike, block, parry) stands in for the Prologue until the Temple of Commandments is built (proposed) | A teachable fight loop is needed before the first gate; the Prologue is a full gate's worth of work | The Prologue ships; then the menu's Tutorial points at it or at a replay of it |
 | Nov 23, 2026 | Editor pinned to **Unity 6000.6.10f1** (Unity 6.6) instead of 6.3 LTS; project created from the URP Blank template with the XR packages added, because the Mixed Reality template was not available for this editor | 6000.6.10f1 was the editor installed on the PC that created the project. 6.6 is a supported Update release, not LTS, so it gets fewer patch releases | A blocking editor or package bug, or the team wants LTS → move to the next LTS as a team |
 | Oct 14, 2026 | Title is **Solo Leveling: Awakening** | From the midterm presentation | — |
 | Oct 14, 2026 | Full **E → S** rank progression on the main path; level cap 50 | Matches the midterm deck's progression and dungeon slides | Phase 5 slips: B–S gates drop to 2 rooms each |

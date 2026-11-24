@@ -33,7 +33,7 @@ namespace SLA.Editor
 
             float h = HubHalfSize;
             const float t = 0.3f;
-            Box(geometry, "Floor", new Vector3(0f, -0.1f, 0f), new Vector3(h * 2f, 0.2f, h * 2f), mats.HubFloor);
+            MakeTeleportFloor(Box(geometry, "Floor", new Vector3(0f, -0.1f, 0f), new Vector3(h * 2f, 0.2f, h * 2f), mats.HubFloor));
             Box(geometry, "Wall_N", new Vector3(0f, HubHeight / 2f, h + t / 2f), new Vector3(h * 2f + t * 2f, HubHeight, t), mats.HubWall);
             Box(geometry, "Wall_S", new Vector3(0f, HubHeight / 2f, -h - t / 2f), new Vector3(h * 2f + t * 2f, HubHeight, t), mats.HubWall);
             Box(geometry, "Wall_E", new Vector3(h + t / 2f, HubHeight / 2f, 0f), new Vector3(t, HubHeight, h * 2f), mats.HubWall);
@@ -102,6 +102,9 @@ namespace SLA.Editor
             Set(quest, "_onCompleted", d.OnDailyQuestCompleted);
             Set(quest, "_messages", d.Messages);
             Set(quest, "_arrived", d.Arrived);
+            Set(quest, "_onNewGame", ctx.Sys.NewGameStarted);
+            Set(quest, "_onCollectSave", ctx.Sys.CollectSave);
+            Set(quest, "_onApplySave", ctx.Sys.ApplySave);
 
             BuildGatePanel(ctx, hub, new Vector3(0f, 2.45f, h - 0.03f), Quaternion.identity);
             BuildDailyQuestWindow(ctx, rig, hub, new Vector3(1.55f, 1.5f, h - 0.03f), Quaternion.identity);
@@ -184,6 +187,7 @@ namespace SLA.Editor
 
             var window = canvas.gameObject.AddComponent<StatusWindow>();
             Set(window, "_status", ctx.Data.PlayerStatus);
+            Set(window, "_inventory", ctx.Sys.Inventory);
             Set(window, "_allocateStat", ctx.Data.OnAllocateStat);
             Set(window, "_background", background);
             Set(window, "_summary", summary);

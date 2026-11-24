@@ -45,7 +45,7 @@ namespace SLA.Editor
         }
 
         /// <summary>The XRI starter rig's teleport (the CMF "Comfortable" preset) expects interaction layer 31 named Teleport.</summary>
-        private static void ApplyTeleportInteractionLayer()
+        public static void ApplyTeleportInteractionLayer()
         {
             var asset = AssetDatabase.LoadMainAssetAtPath(InteractionLayerSettingsPath);
             if (asset == null)
