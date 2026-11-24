@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 547612c9343b6864f989fc40eb2ab482, type: 3}
+  m_Name: DailyQuestConfig
+  m_EditorClassIdentifier: SLA.Data::SLA.Data.DailyQuestConfig
+  bandMinLevel: 010000000a000000140000001e000000i
+  squatsPerBand: 140000001e0000002800000032000000i
+  punchesPerBand: 6400000096000000c8000000fa000000i
+  roundsPerExercise: 2
+  statPointReward: 3
+  calibrationSeconds: 2
+  squatDownFraction: 0.8
+  squatUpFraction: 0.95
+  maxPitchDownDegrees: 45
+  maxDriftMeters: 0.3
+  minRepSeconds: 0.8
+  punchMinSpeed: 2.5
+  padRadiusMeters: 0.14
+  padCooldownSeconds: 0.25
+  padOffsets:
+  - {x: -0.15, y: -0.15, z: 0.5}
+  - {x: 0.15, y: -0.15, z: 0.5}
+  - {x: -0.4, y: -0.2, z: 0.35}
+  - {x: 0.2, y: -0.45, z: 0.4}

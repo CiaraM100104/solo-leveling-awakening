@@ -55,7 +55,7 @@ esac
 
 if [[ -z "$MERGE_TOOL" || ! -e "$MERGE_TOOL" ]]; then
   echo "Could not find UnityYAMLMerge. Install the project's Unity version with Unity Hub, then rerun."
-  echo "(Or set it by hand: UNITY_VERSION=6000.3.x bash tools/setup-git.sh)"
+  echo "(Or set it by hand: UNITY_VERSION=6000.6.10f1 bash tools/setup-git.sh)"
   exit 1
 fi
 

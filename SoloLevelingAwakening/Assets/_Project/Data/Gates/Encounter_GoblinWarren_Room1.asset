@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8172eec0b2294d640a5edc41a3f56598, type: 3}
+  m_Name: Encounter_GoblinWarren_Room1
+  m_EditorClassIdentifier: SLA.Data::SLA.Data.EncounterData
+  waves:
+  - groups:
+    - enemyPrefab: {fileID: 6776940710769534788, guid: 52b669f59399918498ea7aee73667d71, type: 3}
+      count: 2
+  - groups:
+    - enemyPrefab: {fileID: 7014721947898202473, guid: aae8a7a114f5096489abf1626e9ed704, type: 3}
+      count: 4
+  startDelaySeconds: 1.5
+  secondsBetweenWaves: 3.5
+  clearedMessage: Room cleared. The way forward is open.
+  isBossRoom: 0
+  phase2Reinforcements:
+    groups: []
+  phase2Message: 

@@ -11,6 +11,9 @@ Every model, texture, sound, font or piece of music we didn't make goes here, **
 | Asset | Author | Source | License | Used for | Added by |
 | --- | --- | --- | --- | --- | --- |
 | *example:* LowPoly Animated Monsters | Quaternius | <https://quaternius.itch.io/lowpoly-animated-monsters> | CC0 | Skeleton enemies | — |
+| XR Interaction Toolkit samples: Starter Assets, XR Device Simulator | Unity Technologies | Package Manager sample (`Assets/Samples/XR Interaction Toolkit/`) | Unity Companion License | Player rig, locomotion, tunneling vignette, desk testing | — |
+| Shadow Dagger (inspired by Solo Leveling): `SM_ShadowDagger.fbx`, `T_ShadowDagger_D.png` | **TODO: Sketchfab author** | **TODO: Sketchfab page link** | CC BY (per the downloader; confirm the version on the page) | Player's dual daggers (Rusty Dagger stats for now) | — |
+| TMP Essential Resources (includes Liberation Sans) | Unity Technologies; font by Red Hat | `com.unity.ugui` package (`Assets/TextMesh Pro/`) | Unity Companion License; Liberation Sans: SIL Open Font License 1.1 | Placeholder UI font until UI-14 fonts land | — |
 
 Common sources and their terms:
 

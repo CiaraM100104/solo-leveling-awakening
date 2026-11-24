@@ -10,7 +10,7 @@ How the code is organized and why. Full design rationale is in the [GDD](GDD.md#
 
 | Package | Purpose |
 | --- | --- |
-| Unity 6.3 LTS + Universal Render Pipeline | Engine, mobile-friendly rendering, Shader Graph |
+| Unity 6.6 (6000.6.10f1) + Universal Render Pipeline | Engine, mobile-friendly rendering, Shader Graph |
 | OpenXR Plugin + Unity OpenXR: Meta | Quest runtime, passthrough, room data |
 | XR Interaction Toolkit 3 | Grabbing (Velocity Tracking), poke and ray UI, Lazy Follow, locomotion, comfort vignette |
 | AR Foundation | Wall and floor planes from the room scan, passthrough camera |
@@ -180,6 +180,8 @@ One JSON file in `Application.persistentDataPath`, written on state exits.
 Bump `version` whenever the shape changes, and write a migration for the old shape.
 
 ## Build settings (Quest)
+
+Run **SLA → Apply Quest Project Settings** in the editor to apply these (`SLA.Editor.QuestProjectSettings`). Foveation and per-camera post-processing are set at runtime / on the XR rig.
 
 | Setting | Value |
 | --- | --- |

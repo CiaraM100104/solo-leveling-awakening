@@ -1,0 +1,6 @@
+{
+    "name": "SLA.Data",
+    "rootNamespace": "SLA",
+    "references": ["SLA.Core"],
+    "autoReferenced": true
+}

@@ -1,0 +1,6 @@
+{
+    "name": "SLA.Gameplay",
+    "rootNamespace": "SLA",
+    "references": ["SLA.Core", "SLA.Data", "Unity.XR.Interaction.Toolkit", "Unity.XR.CoreUtils", "Unity.AI.Navigation", "Unity.InputSystem"],
+    "autoReferenced": true
+}

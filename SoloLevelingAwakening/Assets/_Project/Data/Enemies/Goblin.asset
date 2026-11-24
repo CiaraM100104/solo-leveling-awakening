@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcc3254505a9c7744920a14a47b9f179, type: 3}
+  m_Name: Goblin
+  m_EditorClassIdentifier: SLA.Data::SLA.Data.EnemyData
+  displayName: Goblin
+  maxHp: 40
+  damagePerHit: 8
+  armor: 0
+  baseXp: 20
+  windupSeconds: 0.8
+  attackSeconds: 0.25
+  recoverSeconds: 1
+  moveSpeedMetersPerSecond: 1.6
+  sightRangeMeters: 20
+  circleRadiusMeters: 2
+  attackRangeMeters: 1.1
+  corpseSeconds: 3

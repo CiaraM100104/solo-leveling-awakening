@@ -44,7 +44,7 @@ Roles and rituals: [docs/TEAM.md](docs/TEAM.md).
 
 ## Tech stack
 
-Unity 6.3 LTS · Universal Render Pipeline · OpenXR + Unity OpenXR: Meta · XR Interaction Toolkit 3 · AR Foundation · AI Navigation · Behavior · ProBuilder. Art in Blender, Mixamo and Substance 3D Painter. All free for students; budget is $0.
+Unity 6.6 (6000.6.10f1) · Universal Render Pipeline · OpenXR + Unity OpenXR: Meta · XR Interaction Toolkit 3 · AR Foundation · AI Navigation · Behavior · ProBuilder. Art in Blender, Mixamo and Substance 3D Painter. All free for students; budget is $0.
 
 ## Repository layout
 

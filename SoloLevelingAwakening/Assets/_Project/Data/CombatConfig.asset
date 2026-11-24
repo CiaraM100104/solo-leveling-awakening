@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4af2225622e637641962235afa98d84e, type: 3}
+  m_Name: CombatConfig
+  m_EditorClassIdentifier: SLA.Data::SLA.Data.CombatConfig
+  minHitSpeed: 1.5
+  fullHitSpeed: 5
+  swingFactorCap: 1.2
+  strengthDamagePerPoint: 0.02
+  headMultiplier: 2
+  torsoMultiplier: 1
+  limbMultiplier: 0.6
+  weakPointMultiplier: 2.5
+  critMultiplier: 1.5
+  bluntFraction: 0.3
+  minSwingArc: 0.3
+  swingArcWindow: 0.25
+  perTargetCooldown: 0.25
+  contactDragSeconds: 0.1
+  blockDamageReduction: 0.8
+  blockFatigueCost: 10
+  parryWindowBase: 0.15
+  parryWindowPerPerception: 0.004
+  parryMinSpeed: 2
+  staggerSeconds: 1.5
+  maxSimultaneousAttackers: 2
+  maxActiveEnemies: 6
+  hapticMinSeconds: 0.04
+  hapticMaxSeconds: 0.12
+  hitstopMinSeconds: 0.04
+  hitstopMaxSeconds: 0.06
+  feedbackFullScaleDamage: 20
+  hitFlashColor: {r: 0.25, g: 0.9, b: 1, a: 1}
+  hitFlashSeconds: 0.1
+  tellGlowColor: {r: 1.5, g: 0.1, b: 0.1, a: 1}

@@ -1,0 +1,8 @@
+{
+    "name": "SLA.Tests.PlayModeSmoke",
+    "references": ["SLA.Core","SLA.Data","SLA.Gameplay","SLA.UI","Unity.TextMeshPro","UnityEngine.TestRunner","UnityEditor.TestRunner"],
+    "overrideReferences": true,
+    "precompiledReferences": ["nunit.framework.dll"],
+    "autoReferenced": false,
+    "defineConstraints": ["UNITY_INCLUDE_TESTS"]
+}

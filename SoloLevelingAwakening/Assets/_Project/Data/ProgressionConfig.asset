@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d345664fab5be724880cbcd62e24bf7e, type: 3}
+  m_Name: ProgressionConfig
+  m_EditorClassIdentifier: SLA.Data::SLA.Data.ProgressionConfig
+  xpBase: 50
+  xpExponent: 1.6
+  levelCap: 50
+  rankXpMultipliers: 010000000300000008000000140000002d00000064000000i
+  statPointsPerLevel: 5
+  skillPointsAfterLevel: 10
+  baseStat: 10
+  baseHp: 100
+  hpPerVitality: 10
+  baseMp: 20
+  mpPerIntelligence: 2

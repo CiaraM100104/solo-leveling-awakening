@@ -19,13 +19,13 @@ Everything a new teammate needs to go from nothing to running a build on a Quest
 | Git | Latest | macOS: `brew install git` · Windows: Git for Windows |
 | Git LFS | Latest | macOS: `brew install git-lfs` · Windows: included in Git for Windows (tick "Git LFS") |
 | Unity Hub | Latest | unity.com/download |
-| Unity Editor | **6.3 LTS (6000.3.x)**: everyone uses the exact same patch | Pin the exact version in this doc once the project is created |
+| Unity Editor | **6000.6.10f1**: everyone uses the exact same patch | See the pin below |
 | Unity modules | **Android Build Support** with **OpenJDK** and **Android SDK & NDK Tools** | Needed for Quest builds. Add in Unity Hub → Installs → ⚙ → Add modules |
 | IDE | JetBrains Rider (free for students) or Visual Studio Code with the C# Dev Kit and Unity extensions | |
 | Meta Quest Developer Hub (MQDH) | Latest | Installs builds, shows headset logs, casts the view. macOS and Windows |
 | Blender (artists) | 4.x | blender.org |
 
-**Exact Unity version:** `6000.3.____` ← the producer fills this in on project creation day. Do not upgrade Unity without a team decision.
+**Exact Unity version:** `6000.6.10f1` (project created Nov 23, 2026; see [DECISIONS](DECISIONS.md)). Do not upgrade Unity without a team decision.
 
 ## 3. Clone the repo
 
@@ -54,18 +54,16 @@ bash tools/setup-git.sh
 
 Plan for at least one Windows PC on the team: Link is the fastest way to iterate.
 
-## 5. Create the Unity project (one person, week 1)
+## 5. Create the Unity project (done Nov 23, 2026)
 
-The producer does this once; everyone else just pulls.
+The project already exists in `SoloLevelingAwakening/`; everyone else just pulls. What was done, for the record:
 
-1. Unity Hub → **New project** → editor **6000.3.x** → template **Mixed Reality** (URP, OpenXR, AR Foundation and XR Interaction Toolkit preconfigured).
-2. **Location:** the repo folder. **Project name:** `SoloLevelingAwakening`. This creates `solo-leveling-awakening/SoloLevelingAwakening/`, which the `.gitignore` already expects.
-3. Edit → Project Settings → **XR Plug-in Management** → Android tab: enable **OpenXR**, then the **Meta Quest** feature group.
-4. Package Manager: add **Unity OpenXR: Meta**, **AI Navigation**, **Behavior**, **ProBuilder** (see [ARCHITECTURE](ARCHITECTURE.md#packages)).
-5. Apply the build settings in [ARCHITECTURE](ARCHITECTURE.md#build-settings-quest).
-6. Create the folder layout in [ARCHITECTURE](ARCHITECTURE.md#folder-layout).
-7. Build once to a Quest and confirm the template scene runs.
-8. Commit on a branch (`feature/systems-project-setup`), open a PR, merge. Record the exact Unity version in step 2 of this doc.
+1. Created with editor **6000.6.10f1** from the **Universal 3D (URP Blank)** template. The Mixed Reality template wasn't available for this editor, so its packages were added by hand.
+2. Packages added: OpenXR, Unity OpenXR: Meta, XR Plug-in Management, XR Interaction Toolkit, AR Foundation, AI Navigation, Behavior, ProBuilder, Test Framework (see [ARCHITECTURE](ARCHITECTURE.md#packages)).
+3. Folder layout and assembly definitions from [ARCHITECTURE](ARCHITECTURE.md#folder-layout). The template scene is now `Scenes/Sandbox/Sandbox_Template.unity`.
+4. **SLA → Apply Quest Project Settings** (editor menu) sets the OpenXR loader, the Meta Quest feature group, single-pass instanced rendering, Touch controller profiles, IL2CPP / ARM64 / Vulkan / ASTC, and MSAA 4× with HDR off ([build settings](ARCHITECTURE.md#build-settings-quest)). Safe to rerun.
+
+**Still to do (needs Android Build Support):** add the Android modules to 6000.6.10f1 in Unity Hub, open the project, run **SLA → Apply Quest Project Settings** again (Android OpenXR settings can't be created without the module), commit the changed settings, then build once to a Quest and confirm the template scene runs. Fixed foveation and post-processing per camera are set when the XR rig is built.
 
 ## 6. Your first build
 

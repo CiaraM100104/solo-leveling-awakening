@@ -1,0 +1,6 @@
+{
+    "name": "SLA.UI",
+    "rootNamespace": "SLA",
+    "references": ["SLA.Core", "SLA.Data", "Unity.TextMeshPro", "UnityEngine.UI"],
+    "autoReferenced": true
+}

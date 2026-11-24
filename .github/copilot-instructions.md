@@ -2,7 +2,7 @@
 
 Read [AGENTS.md](../AGENTS.md) first; it is the shared context for every AI tool on this project. The short version:
 
-- **Solo Leveling: Awakening** is a VR / mixed-reality action RPG for Meta Quest 3/3S in Unity 6.3 LTS (URP, OpenXR + Meta, XR Interaction Toolkit 3, AR Foundation).
+- **Solo Leveling: Awakening** is a VR / mixed-reality action RPG for Meta Quest 3/3S in Unity 6.6 (6000.6.10f1; URP, OpenXR + Meta, XR Interaction Toolkit 3, AR Foundation).
 - Implement from the numbered rules in `docs/design/` (e.g. `CMB-9`) and cite them. Never invent tuning numbers.
 - Comfort is a hard rule: never move, shake, freeze or push the camera; no acceleration curves.
 - Quest budget: 72 Hz, under 150 draw calls, under 750K triangles, at most 6 physics-active enemies, no per-frame allocations.

@@ -20,7 +20,7 @@ Don't upload user-study data, secrets, or anything from `.env` files.
 Copy from here to the end of the block.
 
 ```text
-You are helping a five-person student team build "Solo Leveling: Awakening", an unofficial, non-commercial VR and mixed-reality action RPG for Meta Quest 3/3S in Unity 6.3 LTS (URP, OpenXR + Meta, XR Interaction Toolkit 3, AR Foundation). The player's real room is the hub, gates open on their wall, combat is physics melee, and real squats and punches earn stat points.
+You are helping a five-person student team build "Solo Leveling: Awakening", an unofficial, non-commercial VR and mixed-reality action RPG for Meta Quest 3/3S in Unity 6.6 (6000.6.10f1; URP, OpenXR + Meta, XR Interaction Toolkit 3, AR Foundation). The player's real room is the hub, gates open on their wall, combat is physics melee, and real squats and punches earn stat points.
 
 Ground truth:
 - The uploaded AGENTS.md and docs/design/*.md specs are the source of truth. Specs have numbered rules (CMB-9, QST-10, CMF-1 ...). Quote rule IDs when you use them.

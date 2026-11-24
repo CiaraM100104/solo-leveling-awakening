@@ -4,7 +4,7 @@ Instructions for AI coding agents (Claude Code, Gemini CLI, GitHub Copilot, Code
 
 ## The project
 
-**Solo Leveling: Awakening** is a first-person VR and mixed-reality action RPG for **Meta Quest 3 / 3S**, built in **Unity 6.3 LTS (URP)** by a five-person senior-project team (Oct 2026 to Apr 2027). The player's real room (passthrough) is the hub, gates open on their wall, combat is physics melee, and real squats and punches earn stat points. Unofficial, non-commercial fan project.
+**Solo Leveling: Awakening** is a first-person VR and mixed-reality action RPG for **Meta Quest 3 / 3S**, built in **Unity 6.6 (6000.6.10f1, URP)** by a five-person senior-project team (Oct 2026 to Apr 2027). The player's real room (passthrough) is the hub, gates open on their wall, combat is physics melee, and real squats and punches earn stat points. Unofficial, non-commercial fan project.
 
 ## Where things are
 
@@ -65,7 +65,7 @@ bash tools/check-repo.sh           # same hygiene checks CI runs (meta files, fo
 Unity EditMode tests (macOS path; adjust the version to `ProjectVersion.txt`):
 
 ```bash
-"/Applications/Unity/Hub/Editor/6000.3.26f1/Unity.app/Contents/MacOS/Unity" -batchmode \
+"/Applications/Unity/Hub/Editor/6000.6.10f1/Unity.app/Contents/MacOS/Unity" -batchmode \
   -projectPath SoloLevelingAwakening -runTests -testPlatform EditMode \
   -testResults /tmp/sla-tests.xml -logFile -
 ```
