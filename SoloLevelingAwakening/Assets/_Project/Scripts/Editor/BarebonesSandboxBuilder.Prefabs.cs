@@ -152,6 +152,7 @@ namespace SLA.Editor
             Set(hits, "_progression", d.Progression);
             Set(hits, "_playerStatus", d.PlayerStatus);
             Set(hits, "_tip", tip);
+            AddGrabHint(root, ctx.Font); // After the grab component: the hint requires it.
 
             return SavePrefab(root, Root + "/Prefabs/Weapons/RustyDagger.prefab");
         }

@@ -242,8 +242,8 @@ namespace SLA.Editor
                 GoblinEyes = Mat("M_Goblin_Eyes", new Color(1f, 0.8f, 0.1f), new Color(2.5f, 1.8f, 0.2f)),
                 GoblinClub = Mat("M_Goblin_Club", new Color(0.3f, 0.22f, 0.15f), Color.black),
                 Crown = Mat("M_GoblinChieftain_Crown", new Color(0.9f, 0.7f, 0.2f), Color.black, 0.8f),
-                Blade = Mat("M_RustyDagger_Blade", new Color(0.55f, 0.42f, 0.35f), null, 0.6f),
-                Handle = Mat("M_RustyDagger_Handle", new Color(0.2f, 0.12f, 0.08f)),
+                Blade = Mat("M_RustyDagger_Blade", new Color(0.55f, 0.42f, 0.35f), Color.black, 0.6f),
+                Handle = Mat("M_RustyDagger_Handle", new Color(0.2f, 0.12f, 0.08f), Color.black),
             };
         }
 

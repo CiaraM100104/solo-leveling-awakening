@@ -45,6 +45,7 @@ namespace SLA.Editor
             {
                 if (ApplyShadowDagger(contents))
                 {
+                    AddGrabHint(contents, AssetDatabase.LoadAssetAtPath<TMPro.TMP_FontAsset>(TmpFontPath));
                     PrefabUtility.SaveAsPrefabAsset(contents, DaggerPrefabPath);
                     Debug.Log("[SLA] Shadow Dagger model applied to " + DaggerPrefabPath);
                 }
@@ -206,6 +207,10 @@ namespace SLA.Editor
             material.SetColor("_BaseColor", Color.white);
             material.SetFloat("_Metallic", 0.5f);
             material.SetFloat("_Smoothness", 0.55f);
+            // Emission on (black) so the grab highlight can glow; URP needs the emissive GI flag to keep it.
+            material.EnableKeyword("_EMISSION");
+            material.SetColor("_EmissionColor", Color.black);
+            material.globalIlluminationFlags = MaterialGlobalIlluminationFlags.RealtimeEmissive;
             EditorUtility.SetDirty(material);
             return material;
         }
