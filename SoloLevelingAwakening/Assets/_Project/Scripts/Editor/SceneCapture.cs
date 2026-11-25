@@ -1,4 +1,5 @@
 using System.IO;
+using System.Linq;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -23,6 +24,7 @@ namespace SLA.Editor
             ("hub_east_wall", new Vector3(-0.6f, 1.6f, 0.5f), new Vector3(2.5f, 1.45f, 0.55f)),
             ("hub_south_wall", new Vector3(0.5f, 1.6f, 0.5f), new Vector3(0.7f, 1.4f, -2.5f)),
             ("hub_daggers", new Vector3(0.6f, 1.5f, -0.2f), new Vector3(1.6f, 0.95f, -1.2f)),
+            ("hit_spark", new Vector3(100f, 1.2f, 10.6f), new Vector3(100f, 1.1f, 11.6f)),
             ("tutorial", new Vector3(0f, 1.6f, -102.6f), new Vector3(0f, 1.6f, -96f)),
             ("boss_room_results", new Vector3(100f, 1.6f, 45f), new Vector3(100f, 2.2f, 51f)),
         };
@@ -47,6 +49,20 @@ namespace SLA.Editor
             }
         }
 
+        /// <summary>Freezes one full-strength spark burst mid-flight for the hit_spark still.</summary>
+        private static void ShowHitSpark(Vector3 position)
+        {
+            var spark = Object.FindObjectsByType<ParticleSystem>(FindObjectsInactive.Include, FindObjectsSortMode.None)
+                .FirstOrDefault(p => p.name.StartsWith("HitSpark"));
+            if (spark == null)
+            {
+                return;
+            }
+            spark.transform.position = position;
+            spark.Emit(24);
+            spark.Simulate(0.07f, false, false);
+        }
+
         [MenuItem("SLA/Art/Capture Sandbox Views")]
         public static void CaptureSandbox()
         {
@@ -54,6 +70,7 @@ namespace SLA.Editor
             RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Flat;
             RenderSettings.ambientLight = new Color(0.3f, 0.3f, 0.34f);
             ShowGrabHints();
+            ShowHitSpark(new Vector3(100f, 1.1f, 11.4f));
 
             string folder = Path.Combine(Directory.GetCurrentDirectory(), "Logs", "SceneCapture");
             Directory.CreateDirectory(folder);

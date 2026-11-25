@@ -62,5 +62,9 @@ namespace SLA.Data
         public Color tellGlowColor = new Color(1.5f, 0.1f, 0.1f);
         [Tooltip("PLACEHOLDER: purple tint while staggered after a parry.")]
         public Color staggerColor = new Color(0.5f, 0.2f, 0.9f);
+        [Tooltip("PLACEHOLDER: sparks for the lightest damaging hit (CMB-20 cyan spark VFX).")]
+        public int hitSparkMinCount = 6;
+        [Tooltip("PLACEHOLDER: sparks for a hit at feedbackFullScaleDamage or more. ART_PIPELINE caps an effect at 200.")]
+        public int hitSparkMaxCount = 24;
     }
 }

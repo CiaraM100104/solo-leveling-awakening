@@ -94,6 +94,7 @@ namespace SLA.Editor
             var wrist = BuildWristPanel(ctx, rig);
             var hud = BuildHud(ctx, rig);
             BuildDamageNumbers(ctx, rig, systems);
+            BuildHitSparks(ctx, systems);
             BuildPauseMenu(ctx, rig);
             BuildCoreSystems(ctx, rig, systems, hub.Spawn, areas, wrist, hud);
 

@@ -115,6 +115,9 @@ namespace SLA.Tests
             yield return new WaitForSeconds(5f);
             Assert.Less(status.Last.Hp, status.Last.MaxHp, "goblins walk up and hit the player");
             KillAlive(director);
+            yield return null;
+            int sparks = GameObject.Find("HitSparks").GetComponentsInChildren<ParticleSystem>().Sum(p => p.particleCount);
+            Assert.Greater(sparks, 0, "CMB-20 cyan sparks at the hit point");
             yield return new WaitForSeconds(4.5f);
             Assert.AreEqual(4, Alive(director), "room 1 wave 2");
             KillAlive(director);
