@@ -47,7 +47,7 @@ Physics melee: weapons are real physics objects held with XR Interaction Toolkit
 - **CMB-17** Every enemy attack has a **0.6–1.0 s** windup with a red weapon glow and a sound cue (the "tell").
 - **CMB-18** At most **2** enemies attack at once (attack tokens; see [ENM-2](enemies-and-ai.md)).
 - **CMB-19** An enemy winding up outside the player's view triggers a spatial sound and a red edge glow on that side.
-- **CMB-20** Every hit fires four channels, scaled by damage: controller haptics (**40–120 ms**), enemy-only hitstop (**40–60 ms**), cyan spark VFX + System-blue damage number, and a layered impact sound at the hit point.
+- **CMB-20** Every hit fires four channels, scaled by damage: controller haptics (**40–120 ms**), enemy-only hitstop (**40–60 ms**), cyan spark VFX with a soft glow flash + System-blue damage number, and a layered impact sound at the hit point.
 - **CMB-21** The camera never freezes, shakes or gets pushed by hits (see CMF-1).
 - **CMB-22** Enemies use animated hit reactions (flinch, stagger, knockdown by damage threshold) and switch to a ragdoll on death.
 
