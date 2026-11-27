@@ -87,8 +87,7 @@ namespace SLA.Progression
             return gained;
         }
 
-        public int MaxHp(ProgressionConfig config) =>
-            config.baseHp + Mathf.Max(0, vitality - config.baseStat) * config.hpPerVitality;
+        public int MaxHp(ProgressionConfig config) => config.MaxHp(vitality);
 
         public int MaxMp(ProgressionConfig config) =>
             config.baseMp + Mathf.Max(0, intelligence - config.baseStat) * config.mpPerIntelligence;

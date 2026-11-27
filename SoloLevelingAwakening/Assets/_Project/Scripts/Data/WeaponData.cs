@@ -13,6 +13,8 @@ namespace SLA.Data
         [Tooltip("Below this STR the weapon follows the hand sluggishly.")]
         public int strengthRequirement;
         public float massKg = 0.5f;
+        [Tooltip("Pommel-to-tip length (m); the weapon's model is scaled to it. A dagger is about 0.35 m (ART_PIPELINE).")]
+        public float lengthMeters = 0.35f;
         public bool twoHanded;
         [TextArea] public string special = "";
         public int shopPrice;

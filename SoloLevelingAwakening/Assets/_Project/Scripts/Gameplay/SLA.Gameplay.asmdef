@@ -3,7 +3,8 @@
     "rootNamespace": "SLA",
     "references": [
         "SLA.Core",
-        "SLA.Data"
+        "SLA.Data",
+        "Unity.XR.Interaction.Toolkit"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

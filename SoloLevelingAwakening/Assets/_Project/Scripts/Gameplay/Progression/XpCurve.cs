@@ -6,14 +6,7 @@ namespace SLA.Progression
     /// <summary>XP math from the GDD: XP to next level = round(50 x L^1.6), scaled by the gate rank's multiplier.</summary>
     public static class XpCurve
     {
-        public static int XpToNext(int level, ProgressionConfig config)
-        {
-            if (level < 1)
-            {
-                level = 1;
-            }
-            return Mathf.RoundToInt(config.xpBase * Mathf.Pow(level, config.xpExponent));
-        }
+        public static int XpToNext(int level, ProgressionConfig config) => config.XpToNext(level);
 
         /// <summary>XP an enemy gives: its base XP times its gate rank multiplier.</summary>
         public static int EnemyXp(int baseXp, Rank gateRank, ProgressionConfig config)

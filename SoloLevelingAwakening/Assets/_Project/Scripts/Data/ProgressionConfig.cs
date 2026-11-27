@@ -35,5 +35,18 @@ namespace SLA.Data
             int i = (int)rank;
             return i >= 0 && i < rankXpMultipliers.Length ? rankXpMultipliers[i] : 1f;
         }
+
+        /// <summary>PRG-1: XP to next level = round(xpBase x level ^ xpExponent).</summary>
+        public int XpToNext(int level)
+        {
+            if (level < 1)
+            {
+                level = 1;
+            }
+            return Mathf.RoundToInt(xpBase * Mathf.Pow(level, xpExponent));
+        }
+
+        /// <summary>Max HP for a Vitality value: baseHp plus hpPerVitality per point above baseStat.</summary>
+        public int MaxHp(int vitality) => baseHp + Mathf.Max(0, vitality - baseStat) * hpPerVitality;
     }
 }

@@ -5,10 +5,27 @@ namespace SLA.Gates
     /// <summary>
     /// Where the player stands when a content scene loads. The XR Origin lives in Bootstrap,
     /// so each gate moves it here (position and facing) instead of spawning a new rig.
+    /// Also the respawn point after death (GTE-4).
     /// </summary>
     public class PlayerSpawn : MonoBehaviour
     {
-        private void Start()
+        /// <summary>The spawn in the loaded content scene, if any.</summary>
+        public static PlayerSpawn Current { get; private set; }
+
+        private void OnEnable() => Current = this;
+
+        private void OnDisable()
+        {
+            if (Current == this)
+            {
+                Current = null;
+            }
+        }
+
+        private void Start() => MovePlayerHere();
+
+        /// <summary>Puts the rig on this spawn. Fade first if the player can see it happen (CMF-1).</summary>
+        public void MovePlayerHere()
         {
             var player = GameObject.FindWithTag("Player");
             if (player == null)

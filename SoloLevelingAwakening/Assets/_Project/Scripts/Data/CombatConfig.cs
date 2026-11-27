@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace SLA.Data
 {
@@ -35,6 +36,11 @@ namespace SLA.Data
         public float perTargetCooldown = 0.25f;
         [Tooltip("Follow strength drops for this long after a hit, so blades drag instead of passing through.")]
         public float contactDragSeconds = 0.1f;
+
+        [Header("Feedback")]
+        [Tooltip("A weapon striking a wall or other solid that can't be damaged throws sparks at this speed or more.")]
+        [FormerlySerializedAs("surfaceSparkMinSpeed")]
+        public float surfaceSparkMinSpeedMetersPerSecond = 1f;
 
         [Header("Defense")]
         public float blockDamageReduction = 0.8f;

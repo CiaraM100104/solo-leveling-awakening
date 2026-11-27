@@ -25,6 +25,12 @@ namespace SLA.Combat
 
         public event Action<HitInfo> Hit;
 
+        /// <summary>
+        /// The weapon struck something that takes no damage (a wall, the floor, another blade):
+        /// contact point, surface normal, impact speed (m/s).
+        /// </summary>
+        public event Action<Vector3, Vector3, float> SurfaceStruck;
+
         public int Strength
         {
             get => _strength;
@@ -50,7 +56,18 @@ namespace SLA.Combat
             }
 
             var target = collision.collider.GetComponentInParent<IDamageable>();
-            if (target == null || target.IsDead)
+            if (target == null)
+            {
+                float impactSpeed = collision.relativeVelocity.magnitude;
+                if (impactSpeed >= _config.surfaceSparkMinSpeedMetersPerSecond && collision.contactCount > 0)
+                {
+                    var surface = collision.GetContact(0);
+                    SurfaceStruck?.Invoke(surface.point, surface.normal, impactSpeed);
+                }
+                return;
+            }
+
+            if (target.IsDead)
             {
                 return;
             }
