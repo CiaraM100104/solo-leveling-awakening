@@ -25,4 +25,4 @@ MonoBehaviour:
   baseXp: 20
   goldRange: {x: 5, y: 10}
   behaviorNotes: Fast jabs in packs of 2-3.
-  prefab: {fileID: 0}
+  prefab: {fileID: 6427211994462826494, guid: 001f30933c79a4c48ba11326902b4227, type: 3}
